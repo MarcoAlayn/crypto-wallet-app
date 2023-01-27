@@ -1,15 +1,15 @@
-import { MY_TYPE } from "../actions";
+import { LOAD_ASSETS } from "../actions";
 
 const initialState = {
-  myState: [],
+  assets: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MY_TYPE: {
+    case LOAD_ASSETS: {
       return {
         ...state,
-        myState: action.payload,
+        assets: action.payload.coins,
       };
     }
 
