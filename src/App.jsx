@@ -2,28 +2,30 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import ListAssets from "./components/ListAssets/ListAssets";
-import { fetchAssets, sortAssets } from "./redux/actions";
+import { fetchAssets, sortAssets, getFavorites } from "./redux/actions";
 
 function App() {
   const dispatch = useDispatch();
   const assets = useSelector((state) => state.assets);
 
   // Fetch a la api para cargar los assets en un estado global y refrescar cada minuto
-  const timeRefresh = 60000;
+  const timeRefresh = 60000; // 1 minuto
 
   useEffect(() => {
     if (!assets.length) {
       dispatch(fetchAssets());
     }
+    dispatch(getFavorites());
 
     const intervalRefresh = setInterval(() => {
       dispatch(fetchAssets());
+      dispatch(getFavorites());
     }, timeRefresh);
 
     return () => {
       clearInterval(intervalRefresh);
     };
-  }, [assets]);
+  }, [assets, dispatch]);
 
   // Handlechanges para ordenar
   const [sortBy, setSortBy] = useState("default");
