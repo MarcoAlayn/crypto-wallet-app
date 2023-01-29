@@ -11,14 +11,37 @@ function ListAssets() {
 
   return (
     <div className="container">
-      <div className="row">
-        {searchByName.length
-          ? searchByName.map((coin) => <Asset key={coin.id} coin={coin} />)
-          : showFavorites
-          ? favorites.map((coin) => <Asset key={coin.id} coin={coin} />)
-          : sortedAssets.length
-          ? sortedAssets.map((coin) => <Asset key={coin.id} coin={coin} />)
-          : assets && assets.map((coin) => <Asset key={coin.id} coin={coin} />)}
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-12">
+          <div className="card bg-white rounded">
+            <div className="card-body">
+              {searchByName.length
+                ? searchByName.map((coin) => (
+                    <div className="row" key={coin.id}>
+                      <Asset coin={coin} />
+                    </div>
+                  ))
+                : showFavorites
+                ? favorites.map((coin) => (
+                    <div className="row" key={coin.id}>
+                      <Asset coin={coin} />
+                    </div>
+                  ))
+                : sortedAssets.length
+                ? sortedAssets.map((coin) => (
+                    <div className="row" key={coin.id}>
+                      <Asset coin={coin} />
+                    </div>
+                  ))
+                : assets &&
+                  assets.map((coin) => (
+                    <div className="row" key={coin.id}>
+                      <Asset coin={coin} />
+                    </div>
+                  ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
