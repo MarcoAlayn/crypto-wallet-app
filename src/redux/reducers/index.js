@@ -4,12 +4,17 @@ import {
   ADD_FAVORITE,
   REMOVE_FAVORITE,
   SET_FAVORITES,
+  SHOW_FAVORITES,
+  SEARCH_BY_NAME,
+  RESET_SEARCH,
 } from "../actions";
 
 const initialState = {
   assets: [],
   sortedAssets: [],
   favorites: [],
+  showFavorites: false,
+  searchingByName: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -39,6 +44,24 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         favorites: action.payload,
       };
+    case SHOW_FAVORITES: {
+      return {
+        ...state,
+        showFavorites: !state.showFavorites,
+      };
+    }
+    case SEARCH_BY_NAME: {
+      return {
+        ...state,
+        searchingByName: action.payload,
+      };
+    }
+    case RESET_SEARCH: {
+      return {
+        ...state,
+        searchingByName: [],
+      };
+    }
 
     default:
       return state;

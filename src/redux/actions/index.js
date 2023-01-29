@@ -5,6 +5,9 @@ export const SORT_ASSETS = "SORT_ASSETS";
 export const ADD_FAVORITE = "ADD_FAVORITE";
 export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
 export const SET_FAVORITES = "SET_FAVORITES";
+export const SHOW_FAVORITES = "SHOW_FAVORITES";
+export const SEARCH_BY_NAME = "SEARCH_BY_NAME";
+export const RESET_SEARCH = "RESET_SEARCH";
 
 export function fetchAssets() {
   try {
@@ -12,6 +15,7 @@ export function fetchAssets() {
       const response = await axios.get(
         "https://api.coinstats.app/public/v1/coins"
       );
+      console.log("response.data:", response.data);
       dispatch({
         type: FETCH_ASSETS,
         payload: response.data,
@@ -85,7 +89,7 @@ export function setFavorites(assets) {
     favorites.some((obj2) => obj1.id === obj2.id)
   );
 
-  console.log("updatedFavorites:", updatedFavorites);
+  // console.log("updatedFavorites:", updatedFavorites);
   return {
     type: SET_FAVORITES,
     payload: updatedFavorites,
@@ -95,8 +99,40 @@ export function setFavorites(assets) {
 export function getFavorites() {
   return (dispatch, getState) => {
     const { assets } = getState();
-    const ids = assets.map((asset) => asset.id);
+    const ids = [...assets].map((asset) => asset.id);
     const favorites = assets.filter((asset) => ids.includes(asset.id));
     dispatch(setFavorites(favorites));
+  };
+}
+
+export function showFavorites() {
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_FAVORITES,
+    });
+  };
+}
+
+export function searchByName(name) {
+  return (dispatch, getState) => {
+    const { assets } = getState();
+    if (name) {
+      const filteredAssets = assets.filter((item) =>
+        item.name.toLowerCase().includes(name.toLowerCase())
+      );
+
+      dispatch({
+        type: SEARCH_BY_NAME,
+        payload: filteredAssets,
+      });
+    }
+  };
+}
+
+export function resetSearchBar() {
+  return (dispatch) => {
+    dispatch({
+      type: RESET_SEARCH,
+    });
   };
 }
