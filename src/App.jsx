@@ -6,6 +6,8 @@ import { fetchAssets, getFavorites } from "./redux/actions";
 import ToggleButton from "./components/ToggleButton/ToggleButton";
 import Filters from "./components/Filters/Filters";
 import SearchBar from "./components/SearchBar/SearchBar";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,10 +34,16 @@ function App() {
 
   return (
     <div className="App">
-      <Filters />
-      <ToggleButton />
+      <Header />
+      <br />
       <SearchBar />
+      <br />
+      <Filters />
+      <br />
+      <ToggleButton />
+      <br />
       <ListAssets />
+      <Footer />
     </div>
   );
 }

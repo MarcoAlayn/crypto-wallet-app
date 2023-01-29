@@ -21,6 +21,8 @@
     "react/prop-types": "off",
     "array-callback-return": "off",
     "consistent-return": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }

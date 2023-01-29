@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../../redux/actions";
+import "./Asset.css";
 
 function Asset({ coin }) {
   const dispatch = useDispatch();
@@ -17,58 +18,40 @@ function Asset({ coin }) {
   const isFavorite = favorites.find((item) => item.id === coin.id);
 
   return (
-    <div className="col-12 col-sm-6">
-      <div>
-        <span htmlFor="">Nombre</span>
-        <img src={coin.icon} alt={coin.name} />
-        <span>{coin.symbol}</span>
+    <div className="container custom-props">
+      <div className="row d-flex align-items-center text-uppercase font-weight-bold">
+        <div className="col-3">Nombre</div>
+        <div className="col-2">Ranking</div>
+        <div className="col-2">Precio</div>
+        <div className="col-2">Volumen</div>
+        <div className="col-2">Market Cap</div>
+        <div className="col-1">Acción</div>
       </div>
-      <div>
-        <span>Ranking</span>
-        <span>{coin.rank}</span>
-      </div>
-      <div>
-        <span>Price</span>
-        <span>{coin.price}</span>
-      </div>
-      <div>
-        <span>Volume</span>
-        <span>{coin.volume}</span>
-      </div>
-      <div>
-        <span>Market Cap.</span>
-        <span>{coin.marketCap}</span>
-      </div>
-      <div>
-        <span>Available Supply</span>
-        <span>{coin.availableSupply}</span>
-      </div>
-      <div>
-        <span>Total Supply</span>
-        <span>{coin.totalSupply}</span>
-      </div>
-      <div>
-        <span>Price Change 1h</span>
-        <span>{coin.priceChange1h}</span>
-      </div>
-      <div>
-        <span>Price Change 1d</span>
-        <span>{coin.priceChange1d}</span>
-      </div>
-      <div>
-        <span>Price Change 1w</span>
-        <span>{coin.priceChange1w}</span>
-      </div>
-      <div>
-        {isFavorite ? (
-          <button type="button" onClick={handleRemoveFromFavorites}>
-            Remove from Favorites
-          </button>
-        ) : (
-          <button type="button" onClick={handleAddToFavorites}>
-            Add to Favorites
-          </button>
-        )}
+      <div className="row d-flex align-items-center">
+        <div className="col-3">
+          <img
+            src={coin.icon}
+            alt={coin.name}
+            className="rounded-circle mr-3"
+            style={{ width: "30px", height: "30px" }}
+          />
+          <span>{coin.name}</span>
+        </div>
+        <div className="col-2">{coin.rank}</div>
+        <div className="col-2">{coin.price}</div>
+        <div className="col-2">{coin.volume}</div>
+        <div className="col-2">{coin.marketCap}</div>
+        <div className="col-1">
+          {isFavorite ? (
+            <button type="button" onClick={handleRemoveFromFavorites}>
+              X
+            </button>
+          ) : (
+            <button type="button" onClick={handleAddToFavorites}>
+              +
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

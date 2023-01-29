@@ -1,0 +1,8 @@
+.custom-bg {
+  background-color: black !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.custom-bg:hover {
+  background-color: rgba(0, 0, 0, 0.29) !important;
+}

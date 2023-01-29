@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sortAssets } from "../../redux/actions";
+import "./Filters.css";
 
 function Filters() {
   const [sortBy, setSortBy] = useState("default");
@@ -22,18 +23,32 @@ function Filters() {
     setSortOrder(event.target.value);
   }
   return (
-    <div>
-      <div>
-        <div>Sort by:</div>
-        <select value={sortBy} onChange={handleSortByChange}>
+    <div className="sortContainer d-flex justify-content-center">
+      <div className="sortByContainer d-flex align-items-center">
+        <div className="sortLabel mr-3">Sort by:</div>
+        <select
+          className="form-control custom-select "
+          style={{ marginLeft: "10px" }}
+          value={sortBy}
+          onChange={handleSortByChange}
+        >
           <option value="default" disabled>
             Select One
           </option>
           <option value="name">Name</option>
           <option value="price">Price</option>
         </select>
-        <div>Sort order:</div>
-        <select value={sortOrder} onChange={handleSortOrderChange}>
+      </div>
+      <div className="sortOrderContainer d-flex align-items-center">
+        <div className="sortLabel mr-3" style={{ marginLeft: "10px" }}>
+          Sort order:
+        </div>
+        <select
+          className="sortSelect form-control custom-select"
+          style={{ marginLeft: "10px" }}
+          value={sortOrder}
+          onChange={handleSortOrderChange}
+        >
           <option value="default" disabled>
             Select One
           </option>

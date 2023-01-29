@@ -19,15 +19,35 @@ function SearchBar() {
 
   return (
     <div className="searchBar">
-      <form>
+      <form className="d-flex justify-content-center">
         <input
           className="searchBarInput"
           type="text"
           placeholder="Search..."
           value={searchTerm}
           onChange={handleChange}
+          style={{
+            backgroundColor: "white",
+            border: "1px solid lightgrey",
+            borderRadius: "5px",
+            padding: "10px",
+            fontSize: "18px",
+            width: "50%",
+            marginRight: "10px",
+          }}
         />
-        <button type="button" onClick={resetSearch}>
+        <button
+          type="button"
+          onClick={resetSearch}
+          style={{
+            backgroundColor: "white",
+            border: "1px solid lightgrey",
+            borderRadius: "5px",
+            padding: "10px",
+            fontSize: "18px",
+            color: "GrayText",
+          }}
+        >
           Reset
         </button>
       </form>
