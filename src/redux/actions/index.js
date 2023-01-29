@@ -2,6 +2,9 @@ import axios from "axios";
 
 export const FETCH_ASSETS = "FETCH_ASSETS";
 export const SORT_ASSETS = "SORT_ASSETS";
+export const ADD_FAVORITE = "ADD_FAVORITE";
+export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
+export const SET_FAVORITES = "SET_FAVORITES";
 
 export function fetchAssets() {
   try {
@@ -33,8 +36,67 @@ export function sortAssets(sortBy, sortOrder) {
       }
     });
     dispatch({
-      type: "SORT_ASSETS",
+      type: SORT_ASSETS,
       payload: sortedAssets,
     });
+  };
+}
+
+export function addFavorite(asset) {
+  return (dispatch, getState) => {
+    const { assets, favorites } = getState();
+    const addedAsset = [...assets].find((item) => item.id === asset.id);
+    if (addedAsset !== undefined) {
+      dispatch({
+        type: ADD_FAVORITE,
+        payload: [...favorites, addedAsset],
+      });
+      localStorage.setItem(
+        "favorites",
+        JSON.stringify([...favorites, addedAsset])
+      );
+    } else {
+      console.log("El activo no se encuentra en el estado global");
+    }
+  };
+}
+
+export function removeFavorite(asset) {
+  return (dispatch, getState) => {
+    const { favorites } = getState();
+    const removedAsset = [...favorites].filter((item) => item.id !== asset.id);
+    dispatch({
+      type: REMOVE_FAVORITE,
+      payload: removedAsset,
+    });
+    localStorage.setItem("favorites", JSON.stringify(removedAsset));
+  };
+}
+
+export function setFavorites(assets) {
+  const favoritesFromLocalStorage = localStorage.getItem("favorites");
+  let favorites = [];
+
+  if (favoritesFromLocalStorage) {
+    favorites = JSON.parse(favoritesFromLocalStorage);
+  }
+
+  const updatedFavorites = assets.filter((obj1) =>
+    favorites.some((obj2) => obj1.id === obj2.id)
+  );
+
+  console.log("updatedFavorites:", updatedFavorites);
+  return {
+    type: SET_FAVORITES,
+    payload: updatedFavorites,
+  };
+}
+
+export function getFavorites() {
+  return (dispatch, getState) => {
+    const { assets } = getState();
+    const ids = assets.map((asset) => asset.id);
+    const favorites = assets.filter((asset) => ids.includes(asset.id));
+    dispatch(setFavorites(favorites));
   };
 }

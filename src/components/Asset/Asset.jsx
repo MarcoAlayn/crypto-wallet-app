@@ -1,6 +1,21 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavorite } from "../../redux/actions";
 
 function Asset({ coin }) {
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites);
+
+  const handleAddToFavorites = () => {
+    dispatch(addFavorite(coin));
+  };
+
+  const handleRemoveFromFavorites = () => {
+    dispatch(removeFavorite(coin));
+  };
+
+  const isFavorite = favorites.find((item) => item.id === coin.id);
+
   return (
     <div className="col-12 col-sm-6">
       <div>
@@ -43,6 +58,17 @@ function Asset({ coin }) {
       <div>
         <span>Price Change 1w</span>
         <span>{coin.priceChange1w}</span>
+      </div>
+      <div>
+        {isFavorite ? (
+          <button type="button" onClick={handleRemoveFromFavorites}>
+            Remove from Favorites
+          </button>
+        ) : (
+          <button type="button" onClick={handleAddToFavorites}>
+            Add to Favorites
+          </button>
+        )}
       </div>
     </div>
   );
