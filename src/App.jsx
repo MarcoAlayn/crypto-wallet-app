@@ -43,6 +43,7 @@ function App() {
       <ToggleButton />
       <br />
       <ListAssets />
+      <br />
       <Footer />
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import "./ListAssets.css";
 import Asset from "../Asset/Asset";
 
 function ListAssets() {
@@ -10,37 +11,62 @@ function ListAssets() {
   const searchByName = useSelector((state) => state.searchingByName);
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-12 col-md-12">
-          <div className="card bg-white rounded">
-            <div className="card-body">
+    <div className="container-fluid ">
+      <div className="row">
+        <div className="col-lg-10 mx-auto rounded custom-tableBackground ">
+          <table className="table table-striped d-none d-sm-table mx-auto">
+            <thead>
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Cryptocurrency</th>
+                <th scope="col">Price/USD</th>
+                <th scope="col">Change (1h)</th>
+                <th scope="col">Change (1d)</th>
+                <th scope="col">Change (1w)</th>
+                <th scope="col">Market Cap</th>
+                <th scope="col">Favorites</th>
+              </tr>
+            </thead>
+            <tbody>
               {searchByName.length
                 ? searchByName.map((coin) => (
-                    <div className="row" key={coin.id}>
-                      <Asset coin={coin} />
-                    </div>
+                    <Asset coin={coin} key={coin.id} />
                   ))
                 : showFavorites
-                ? favorites.map((coin) => (
-                    <div className="row" key={coin.id}>
-                      <Asset coin={coin} />
-                    </div>
-                  ))
+                ? favorites.map((coin) => <Asset coin={coin} key={coin.id} />)
                 : sortedAssets.length
                 ? sortedAssets.map((coin) => (
-                    <div className="row" key={coin.id}>
-                      <Asset coin={coin} />
-                    </div>
+                    <Asset coin={coin} key={coin.id} />
                   ))
                 : assets &&
-                  assets.map((coin) => (
-                    <div className="row" key={coin.id}>
-                      <Asset coin={coin} />
-                    </div>
-                  ))}
-            </div>
-          </div>
+                  assets.map((coin) => <Asset coin={coin} key={coin.id} />)}
+            </tbody>
+          </table>
+
+          <table className="table table-striped d-sm-none mx-auto">
+            <thead>
+              <tr>
+                <th scope="col">Activos</th>
+                <th scope="col">Precio/USD</th>
+                <th scope="col">Cambio (1h)</th>
+                <th scope="col">Favoritos</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchByName.length
+                ? searchByName.map((coin) => (
+                    <Asset coin={coin} key={coin.id} />
+                  ))
+                : showFavorites
+                ? favorites.map((coin) => <Asset coin={coin} key={coin.id} />)
+                : sortedAssets.length
+                ? sortedAssets.map((coin) => (
+                    <Asset coin={coin} key={coin.id} />
+                  ))
+                : assets &&
+                  assets.map((coin) => <Asset coin={coin} key={coin.id} />)}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

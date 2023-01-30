@@ -28,7 +28,6 @@ function Filters() {
         <div className="sortLabel mr-3">Sort by:</div>
         <select
           className="form-control custom-select "
-          style={{ marginLeft: "10px" }}
           value={sortBy}
           onChange={handleSortByChange}
         >
@@ -45,7 +44,6 @@ function Filters() {
         </div>
         <select
           className="sortSelect form-control custom-select"
-          style={{ marginLeft: "10px" }}
           value={sortOrder}
           onChange={handleSortOrderChange}
         >
