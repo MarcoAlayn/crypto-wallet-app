@@ -13,7 +13,7 @@ export function fetchAssets() {
   try {
     return async (dispatch) => {
       const response = await axios.get(
-        "https://api.coinstats.app/public/v1/coins"
+        "https://api.coinstats.app/public/v1/coins?currency=USD"
       );
       console.log("response.data:", response.data);
       dispatch({
