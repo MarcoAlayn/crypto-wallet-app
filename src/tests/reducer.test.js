@@ -1,12 +1,16 @@
 import rootReducer from "../redux/reducers/index";
 import { FETCH_ASSETS } from "../redux/actions/index";
 
+// El test verifica el comportamiento de la acción "FETCH_ASSETS" en el reductor.
+
 describe("Testing FETCH_ASSETS in reducer", () => {
   it("should return the new state with the fetched assets", () => {
+    // Se establece un estado inicial para el almacenamiento de activos con un arreglo vacío.
     const initialState = {
       assets: [],
     };
 
+    // Luego, se define un arreglo de activos con valores para dos activos: Bitcoin y Ethereum.
     const assets = [
       {
         id: "bitcoin",
@@ -65,8 +69,10 @@ describe("Testing FETCH_ASSETS in reducer", () => {
       },
     };
 
+    // La acción "FETCH_ASSETS" se ejecuta con un payload que contiene el arreglo de activos.
     const newState = rootReducer(initialState, action);
 
+    // Finalmente, se espera que el nuevo estado del almacenamiento de activos sea igual al arreglo de activos
     expect(newState).toEqual({
       assets,
     });
