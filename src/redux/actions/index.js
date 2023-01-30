@@ -28,8 +28,18 @@ export function fetchAssets() {
 
 export function sortAssets(sortBy, sortOrder) {
   return (dispatch, getState) => {
-    const { assets } = getState();
+    const { assets, searchingByName } = getState();
     const sortedAssets = [...assets].sort((a, b) => {
+      if (sortBy === "name") {
+        return sortOrder === "asc"
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      }
+      if (sortBy === "price") {
+        return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
+      }
+    });
+    const sortedSearchingByName = [...searchingByName].sort((a, b) => {
       if (sortBy === "name") {
         return sortOrder === "asc"
           ? a.name.localeCompare(b.name)
@@ -42,6 +52,10 @@ export function sortAssets(sortBy, sortOrder) {
     dispatch({
       type: SORT_ASSETS,
       payload: sortedAssets,
+    });
+    dispatch({
+      type: SEARCH_BY_NAME,
+      payload: sortedSearchingByName,
     });
   };
 }
